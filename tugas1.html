@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tugas Ajax 1</title>
+
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        />
+
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body class="bg-light">
+        <div class="container h-100">
+            <div class="row align-items-center h-100">
+                <div class="col-6 mx-auto">
+                    <div class="card border-secondary mb-3">
+                        <div class="card-header">
+                            <a href="./index.html" class="btn btn-outline-primary btn-sm">Kembali</a>
+                        </div>
+
+                        <div class="card-body text-dark text-center">
+                            <h1 class="card-title">Menampilkan data dari file HTML lain</h1>
+                            <p class="card-text">
+                                Menampilkan isi dari file <a href="./tampil.html">tampil.html</a>
+                            </p>
+                            <form class="mb-2">
+                                <input
+                                    type="button"
+                                    value="Tampilkan Data"
+                                    onclick="getdata('tampil.html','divhasil')"
+                                    class="btn btn-primary"
+                                />
+                            </form>
+                            <div id="divhasil">Hasilnya akan ditampilkan disini</div>
+                        </div>
+
+                        <div class="card-footer text-muted">
+                            05111840000146 - I Kadek Ricky Suirta
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var XMLHttpRequestObject = false;
+            if (window.XMLHttpRequest) {
+                XMLHttpRequestObject = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHttp");
+            }
+            function getdata(url, divhasil) {
+                if (XMLHttpRequestObject) {
+                    var obj = document.getElementById(divhasil);
+                    XMLHttpRequestObject.open("GET", url);
+                    XMLHttpRequestObject.onreadystatechange = function () {
+                        if (XMLHttpRequestObject.readyState == 1) {
+                            obj.innerHTML = "Loading";
+                        }
+                        if (
+                            XMLHttpRequestObject.readyState == 4 &&
+                            XMLHttpRequestObject.status == 200
+                        ) {
+                            obj.innerHTML = XMLHttpRequestObject.responseText;
+                        }
+                    };
+                    XMLHttpRequestObject.send(null);
+                }
+            }
+        </script>
+    </body>
+</html>
